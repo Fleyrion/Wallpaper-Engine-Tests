@@ -1,0 +1,72 @@
+//Single Clock
+'use strict';
+var russia = 3;
+var tarkov = 7;
+export var scriptProperties = createScriptProperties()
+	// Whether you want to see the seconds or not
+	.addCheckbox({
+		name: 'showSeconds',
+		label: 'ui_editor_properties_show_seconds',
+		value: false
+	})
+	// This will be used to separate each element
+	.addText({
+		name: 'delimiter',
+		label: 'ui_editor_properties_delimiter',
+		value: ':'
+	})
+	.finish();
+
+export function update(value) {
+	var time = new Date();
+	time.setTime((time.getTime() * tarkov) + russia);
+	//Decomment next line for right time
+	//time.setUTCHours(time.getUTCHours() + 12)
+	var hours = ("00" + time.getUTCHours()).slice(-2);
+	var minutes = ("00" + time.getUTCMinutes()).slice(-2);
+	value = hours + scriptProperties.delimiter + minutes;
+	if (scriptProperties.showSeconds) {
+		var seconds = ("00" + time.getUTCSeconds()).slice(-2);
+		value += scriptProperties.delimiter + seconds;
+	}
+	return value;
+}
+
+//Double Clock
+'use strict';
+var russia = 3;
+var tarkov = 7;
+export var scriptProperties = createScriptProperties()
+	// Whether you want to see the seconds or not
+	.addCheckbox({
+		name: 'showSeconds',
+		label: 'ui_editor_properties_show_seconds',
+		value: false
+	})
+	// This will be used to separate each element
+	.addText({
+		name: 'delimiter',
+		label: 'ui_editor_properties_delimiter',
+		value: ':'
+	})
+	.finish();
+
+export function update(value) {
+	var value = "Left Time: "
+	var time = new Date();
+	time.setTime((time.getTime() * tarkov) + russia);
+	var hours = ("00" + time.getUTCHours()).slice(-2);
+	var minutes = ("00" + time.getUTCMinutes()).slice(-2);
+	value += hours + scriptProperties.delimiter + minutes;
+	if (scriptProperties.showSeconds) {
+		var seconds = ("00" + time.getUTCSeconds()).slice(-2);
+		value += scriptProperties.delimiter + seconds;
+	}
+	time.setUTCHours(time.getUTCHours() + 12)
+	var hours = ("00" + time.getUTCHours()).slice(-2);
+	value +=" | Right Time: " + hours + scriptProperties.delimiter + minutes;
+	if (scriptProperties.showSeconds) {
+		value += scriptProperties.delimiter + seconds;
+	}
+	return value;
+}
