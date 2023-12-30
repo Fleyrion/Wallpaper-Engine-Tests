@@ -1,8 +1,8 @@
 {
 	"camera" : 
 	{
-		"center" : "0.00000 0.00000 -1.00000",
-		"eye" : "0.00000 0.00000 0.00000",
+		"center" : "1.70667 1.70667 -1.00000",
+		"eye" : "1.70667 1.70667 0.00000",
 		"up" : "0.00000 1.00000 0.00000"
 	},
 	"general" : 
@@ -123,7 +123,7 @@
 			"solid" : true,
 			"text" : 
 			{
-				"script" : "'use strict';\n\nexport var scriptProperties = createScriptProperties()\n\t// Whether you want to see the seconds or not\n\t.addCheckbox({\n\t\tname: 'showSeconds',\n\t\tlabel: 'ui_editor_properties_show_seconds',\n\t\tvalue: false\n\t})\n\t// This will be used to separate each element\n\t.addText({\n\t\tname: 'delimiter',\n\t\tlabel: 'ui_editor_properties_delimiter',\n\t\tvalue: ':'\n\t})\n\t.finish();\n\nexport function update(value) {\n\tvar time = new Date();\n\ttime.setTime(time.getTime() * 7);\n\ttime.setUTCHours(time.getUTCHours()+3)\n\tvar hours = (\"00\" + time.getUTCHours()).slice(-2);\n\tvar minutes = (\"00\" + time.getUTCMinutes()).slice(-2);\n\tvalue = hours + scriptProperties.delimiter + minutes;\n\tif (scriptProperties.showSeconds) {\n\t\tvar seconds = (\"00\" + time.getUTCSeconds()).slice(-2);\n\t\tvalue += scriptProperties.delimiter + seconds;\n\t}\n\treturn value;\n}\n",
+				"script" : "'use strict';\nvar russia = 3;\nvar tarkov = 7;\nexport var scriptProperties = createScriptProperties()\n\t// Whether you want to see the seconds or not\n\t.addCheckbox({\n\t\tname: 'showSeconds',\n\t\tlabel: 'ui_editor_properties_show_seconds',\n\t\tvalue: false\n\t})\n\t// This will be used to separate each element\n\t.addText({\n\t\tname: 'delimiter',\n\t\tlabel: 'ui_editor_properties_delimiter',\n\t\tvalue: ':'\n\t})\n\t.finish();\n\nexport function update(value) {\n\tvar time = new Date();\n\ttime.setTime((time.getTime() * tarkov) + russia);\n\t//Decomment next line for right time\n\t//time.setUTCHours(time.getUTCHours() + 12)\n\tvar hours = (\"00\" + time.getUTCHours()).slice(-2);\n\tvar minutes = (\"00\" + time.getUTCMinutes()).slice(-2);\n\tvalue = hours + scriptProperties.delimiter + minutes;\n\tif (scriptProperties.showSeconds) {\n\t\tvar seconds = (\"00\" + time.getUTCSeconds()).slice(-2);\n\t\tvalue += scriptProperties.delimiter + seconds;\n\t}\n\treturn value;\n}\n",
 				"scriptproperties" : 
 				{
 					"delimiter" : ":",
