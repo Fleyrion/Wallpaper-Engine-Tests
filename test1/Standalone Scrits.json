@@ -36,11 +36,18 @@ export function update(value) {
 'use strict';
 var russia = 3;
 var tarkov = 7;
+var oneHours = 3600000;
 export var scriptProperties = createScriptProperties()
 	// Whether you want to see the seconds or not
 	.addCheckbox({
 		name: 'showSeconds',
 		label: 'ui_editor_properties_show_seconds',
+		value: false
+	})
+	// Whether you want to see the Clock or not
+	.addCheckbox({
+		name: 'showText',
+		label: 'ui_editor_properties_show_text',
 		value: false
 	})
 	// This will be used to separate each element
@@ -52,9 +59,16 @@ export var scriptProperties = createScriptProperties()
 	.finish();
 
 export function update(value) {
-	var value = "Left Time: "
+
+	var value = ""
+	
+	if (scriptProperties.showText) {
+		value = "Left Time: "
+	}
+	
+	
 	var time = new Date();
-	time.setTime((time.getTime() * tarkov) + russia);
+	time.setTime((time.getTime() * tarkov) + (russia * oneHours));
 	var hours = ("00" + time.getUTCHours()).slice(-2);
 	var minutes = ("00" + time.getUTCMinutes()).slice(-2);
 	value += hours + scriptProperties.delimiter + minutes;
@@ -62,6 +76,25 @@ export function update(value) {
 		var seconds = ("00" + time.getUTCSeconds()).slice(-2);
 		value += scriptProperties.delimiter + seconds;
 	}
+
+	value += "\n"
+
+if (scriptProperties.showText) {
+	value +="Right Time: "
+	}
+
+	time.setUTCHours(time.getUTCHours() + 12)
+	var hours = ("00" + time.getUTCHours()).slice(-2);
+	value +=hours + scriptProperties.delimiter + minutes;
+
+	
+
+	if (scriptProperties.showSeconds) {
+		value += scriptProperties.delimiter + seconds;
+	}
+
+	return value;
+}
 	time.setUTCHours(time.getUTCHours() + 12)
 	var hours = ("00" + time.getUTCHours()).slice(-2);
 	value +=" | Right Time: " + hours + scriptProperties.delimiter + minutes;
